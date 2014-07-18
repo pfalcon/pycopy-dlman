@@ -35,15 +35,16 @@ def download(f):
         os.rename(path, error_full_path + f)
 
 def loop():
+    t = time.time()
     while True:
-        t1 = time.time()
         files = os.listdir(DIR)
         files = filter(lambda f: f[0] != "_", files)
         for f in files:
             print(f)
             download(f)
         t2 = time.time()
-        if t2 < t1 or t2 - t1 > LOG_TICKS:
+        if t2 < t or t2 - t > LOG_TICKS:
+            t = t2
             print("Sleeping")
         time.sleep(5)
 
