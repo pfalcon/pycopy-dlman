@@ -8,7 +8,8 @@ deploy: lib
 	ssh $(HOST) mkdir -p $(DEPLOY_DIR)
 	scp dlman.* $(HOST):$(DEPLOY_DIR)/
 	scp config.py.nas $(HOST):$(DEPLOY_DIR)/config.py
-	scp -r lib $(HOST):$(DEPLOY_DIR)/
+	rsync -rtv --delete --delete-excluded --executability \
+	    --exclude="*.egg-info" lib $(HOST):$(DEPLOY_DIR)/
 
 # This target prepares snapshot of all dependency modules, for
 # self-contained install
