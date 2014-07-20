@@ -1,0 +1,40 @@
+dlman, a simple download manager frontend for wget
+==================================================
+
+This is simple, but complete and deployable MicroPython application for
+embedded Linux systems.
+
+The application, running as a daemon, watches a configured directory
+for new files, each containing a URL of file to download. Once found,
+URL is downloaded using wget with user-defined options. The idea is
+that you will run dlman or NAS-like system, with input directory for
+URLs and output directory for download files mounted over network
+for easy access with your other computing devices and media players.
+
+Basic error handling is implemented, for example after transient network
+error, download will continue after pause, and yet permanent errors
+should be detected and not lead to infinite download loops. All the
+functionality above is very basic, and leaves much room for elaboration
+and improvement.
+
+dlman can be deployed to any embeded Linux system accessible via SSH and
+which has MicroPython already installed.
+
+To deploy the app, edit variables at the top of the Makefile and
+application config (sample is provided as config.py.nas). And run
+"make deploy". As first step of the process, dependency modules
+(as specified in requirements.txt) will be downloaded from Python
+packages repository, PyPI (https://pypi.python.org/).
+
+To run dlman, start dlman.sh (it will log to dlman.log). To make it keep
+running after you log out from target system, it should be run as
+"nohup ./dlman.sh". Alternatively, dlman.sh can be run using startup
+scripts during system boot (exact details depend on particular Linux
+system used).
+
+WARNING: Currently, dlman is not suitable for production use (for
+example, it uses directory polling to find new files to download, and
+it was found this may preclude disk drives to go into suspend state
+on a real NAS system). So, currently it is mostly example of how to
+deploy a MicroPython application. The fucntionality of dlman will be
+elaborated as time permits.
