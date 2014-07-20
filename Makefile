@@ -1,6 +1,7 @@
-HOST = nas
+# Remote system to deploy to, using standard SSH notation of
+# [<user>@]<host>
+HOST = pfalcon@nas
 DEPLOY_DIR = dlman
-#DEPLOY_DIR = .
 
 all:
 
