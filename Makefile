@@ -2,13 +2,14 @@
 # [<user>@]<host>
 HOST = pfalcon@nas
 DEPLOY_DIR = dlman
+CONFIG = config.py.nas
 
 all:
 
 deploy: lib
 	ssh $(HOST) mkdir -p $(DEPLOY_DIR)
 	scp dlman.* $(HOST):$(DEPLOY_DIR)/
-	scp config.py.nas $(HOST):$(DEPLOY_DIR)/config.py
+	scp $(CONFIG) $(HOST):$(DEPLOY_DIR)/config.py
 	rsync -rtv --delete --delete-excluded --executability \
 	    --exclude="*.egg-info" lib $(HOST):$(DEPLOY_DIR)/
 
