@@ -4,8 +4,13 @@ DEPLOY_DIR = dlman
 
 all:
 
-deploy:
+deploy: lib
 	ssh $(HOST) mkdir -p $(DEPLOY_DIR)
 	scp dlman.* $(HOST):$(DEPLOY_DIR)/
 	scp config.py.nas $(HOST):$(DEPLOY_DIR)/config.py
 	scp -r lib $(HOST):$(DEPLOY_DIR)/
+
+# This target prepares snapshot of all dependency modules, for
+# self-contained install
+lib:
+	PIP_MICROPY_DEST=$$PWD pip-micropython install -r requirements.txt
