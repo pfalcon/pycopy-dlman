@@ -1,2 +1,2 @@
-micropython-os
-micropython-os.path
+pycopy-os
+pycopy-os.path
